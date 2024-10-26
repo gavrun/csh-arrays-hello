@@ -65,6 +65,12 @@
                 Console.Write(item + " ");
             Console.WriteLine("\n");
 
+            // initializing an array by enumeration
+            int[] enumedArray = Enumerable.Repeat(1, 5).ToArray(); // array of 5 elements
+            Console.WriteLine("Array initialized with the same value:");
+            Console.WriteLine(string.Join(" ", enumedArray));
+            Console.WriteLine();
+
             // reusing basicArray in other operations 
             Console.WriteLine("Reusing Basic Array:");
             foreach (var item in basicArray)
@@ -98,6 +104,15 @@
                     Console.Write(item + " ");
                 Console.WriteLine();
             }
+            Console.WriteLine();
+
+            // collection (dynamic list) of arrays
+            List<int[]> listOfArrays = new List<int[]>();
+            listOfArrays.Add(new int[] { 1, 2 });
+            listOfArrays.Add(new int[] { 3, 4, 5 });
+            Console.WriteLine("List of arrays (dynamic 'jagged' structure):");
+            foreach (var arrayItem in listOfArrays)
+                Console.WriteLine(string.Join(" ", arrayItem));
             Console.WriteLine();
 
             // array methods
@@ -193,10 +208,64 @@
             Console.WriteLine("Binary Search for 3: Index = " + binarySearchIndex);
             Console.WriteLine();
 
-            // parallel foreach, single-thread loop 
-            Console.WriteLine("Processing Array with Parallel (Simulated):");
-            foreach (var num in numbers)
-                Console.WriteLine("Processing " + num);
+            // removing elements
+            int[] originalArray = { 1, 2, 3, 4, 5 };
+            int elementToRemove = 3;
+            int[] modifiedArray = originalArray.Where(x => x != elementToRemove).ToArray();
+            Console.WriteLine("Array after removing element 3:");
+            Console.WriteLine(string.Join(" ", modifiedArray));
+            Console.WriteLine();
+
+            // using array segments
+            int[] fullArray = { 1, 2, 3, 4, 5, 6, 7 };
+            Console.WriteLine("FullArray:");
+            foreach (var item in fullArray)
+                Console.Write(item + " ");
+            Console.WriteLine();
+            ArraySegment<int> subArray = new ArraySegment<int>(fullArray, 2, 3); // elements from 2 to 4 (3 elements)
+            Console.WriteLine("SubArray:");
+            foreach (var item in subArray)
+                Console.Write(item + " ");
+            Console.WriteLine();
+
+            // reversing array segments
+            int[] arrayForReversing = { 1, 2, 3, 4, 5 };
+            int start = 1, length = 3;
+            Array.Reverse(arrayForReversing, start, length); // reverses elements 2, 3 and 4
+            Console.WriteLine("Array after reversing a subarray:");
+            Console.WriteLine(string.Join(" ", arrayForReversing));
+            
+            // remove duplicates with collection (dynamic hashset)
+            int[] arrayWithDuplicates = { 1, 2, 2, 3, 4, 4, 5 };
+            int[] uniqueArray = new HashSet<int>(arrayWithDuplicates).ToArray();
+            Console.WriteLine("Array after removing duplicates:");
+            Console.WriteLine(string.Join(" ", uniqueArray));
+            Console.WriteLine();
+
+            // advanced LINQ with arrays
+            int[] complexArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            var result = complexArray.Where(x => x % 2 == 0).OrderByDescending(x => x).ToArray();
+            Console.WriteLine("Even numbers sorted in descending order:");
+            Console.WriteLine(string.Join(" ", result));
+            int[] complexArray2 = { 1, 2, 2, 3, 5, 6, 6, 7, 8, 9, 11, 13 };
+            var result2 = complexArray2.Where(x => x % 2 == 0).OrderByDescending(x => x).ToArray();
+            Console.WriteLine(string.Join(" ", result2));
+            Console.WriteLine();
+
+            // serializing array
+            int[] arrayToSerialize = { 1, 2, 3, 4, 5 };
+            string serializedArray = string.Join(",", arrayToSerialize);
+            Console.WriteLine("Serialized array:");
+            Console.WriteLine(serializedArray);
+            Console.WriteLine();
+
+            // filling an array with random
+            int[] randomArray = new int[5];
+            Random random = new Random();
+            for (int i = 0; i < randomArray.Length; i++)
+                randomArray[i] = random.Next(1, 100); // numbers from 1 to 100
+            Console.WriteLine("Array with random values:");
+            Console.WriteLine(string.Join(" ", randomArray));
 
             Console.WriteLine("\nGood bye, Arrays.");
         }
